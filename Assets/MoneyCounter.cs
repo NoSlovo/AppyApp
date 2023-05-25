@@ -9,10 +9,10 @@ public class MoneyCounter : MonoBehaviour
    private void OnEnable() => _playerWallet.MoneyIncreased += ShowValue;
    
 
-   private void Start() => _text.text = $"{_playerWallet.MoneyPlayer}";
+   private void Start() => _text.text = $"${_playerWallet.MoneyPlayer}";
    
 
-   private void ShowValue() => _text.text = $"{_playerWallet.MoneyPlayer}";
+   private void ShowValue() => _text.text = $"${_playerWallet.MoneyPlayer}";
    
 
    private void OnDisable() => _playerWallet.MoneyIncreased -= ShowValue;
