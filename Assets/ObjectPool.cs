@@ -8,28 +8,23 @@ public class ObjectPool : MonoBehaviour
 
   public void AddObjectPool(Money money)
   {
-    if (_moneyPool.Count > _poolSize)
-      Destroy(money);
-    
-    money.transform.SetParent(transform);
     _moneyPool.Add(money);
     money.gameObject.SetActive(false);
   }
 
-  public Money GetMoney()
+  public void GetMoney(out Money money)
   {
-    foreach (var money in _moneyPool)
+    for(int i = 0; i <  _moneyPool.Count;i++)
     {
-      if (!money.isActiveAndEnabled)
+      if (_moneyPool[i].isActiveAndEnabled == false)
       {
-        money.gameObject.SetActive(true);
-        return money;
+        _moneyPool[i].gameObject.SetActive(true);
+        money = _moneyPool[i];
+        return;
       }
     }
-
-    var monetInstantiate = Instantiate(_moneyPool[1]);
-    AddObjectPool(monetInstantiate);
-    return monetInstantiate;
+    money = Instantiate(_moneyPool[1]);
+    _moneyPool.Add(money);
   }
   
 }

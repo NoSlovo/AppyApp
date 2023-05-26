@@ -5,9 +5,12 @@ public class Money : MonoBehaviour,IObjectСollected
 {
     [SerializeField] private ObjectPool _poolObject;
     
+    private bool _iPickedUp = false;
     private int _price = 10;
-    
-    private void Start()
+
+    public int Price => _price;
+
+    private void Awake()
     {
         AnimationJump();
     }
@@ -20,7 +23,6 @@ public class Money : MonoBehaviour,IObjectСollected
     private void AnimationJump()
     {
         Vector3 jumpPoint = transform.position + new Vector3(0, 0.1f, 0);
-        transform.DOJump(jumpPoint, 0.3f, 1, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void Rotation()
@@ -30,10 +32,19 @@ public class Money : MonoBehaviour,IObjectСollected
     
     public void MoveToPlayer( PlayerWallet playerWallet)
     {
-        transform.DOMove(playerWallet.transform.position, 0.4f).OnComplete(() =>
+        if (!_iPickedUp)
+        {
+            transform.DOMove(playerWallet.transform.position, 0.4f).OnComplete(() =>
         {
             playerWallet.AddMoney(_price);
             _poolObject.AddObjectPool(this);
+            _iPickedUp = true;
         });
+        }
+    }
+
+    public void Reset()
+    {
+        gameObject.SetActive(false);
     }
 }
