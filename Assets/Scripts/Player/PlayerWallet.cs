@@ -29,11 +29,14 @@ public class PlayerWallet : MonoBehaviour
    
    public bool GetMoney(out Money money)
    {
-      var moneyGet = _objectPool.GetMoney();
+       _objectPool.GetMoney(out Money moneyObject);
 
-      if (moneyGet != null)
+      if (moneyObject != null && MoneyPlayer > 0)
       {
-         money = moneyGet;
+         MoneyPlayer -= moneyObject.Price;
+         MoneyIncreased?.Invoke();  
+         moneyObject.transform.position = transform.position;
+         money = moneyObject;
          return true;
       }
         

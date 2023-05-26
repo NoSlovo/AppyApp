@@ -1,9 +1,4 @@
-﻿using UnityEngine;
-
-namespace Interface
+﻿public interface IFactory
 {
-    public interface IFactoryAviary
-    {
-        public GameObject GetAviary();
-    }
+    public void InstanceObject();
 }
