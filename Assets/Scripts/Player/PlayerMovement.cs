@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private DynamicJoystick _joystick;
+    [SerializeField] private CarrotTower _carrotTower;
 
     private AnimatorPlayer _animator;
     private CharacterController _controller;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         CreateTargetDirection();
+        CheckCrying();
     }
 
 
@@ -64,5 +66,14 @@ public class PlayerMovement : MonoBehaviour
         float targetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _inputAngle, ref _rotationSmoothVelocity,
             _rotationSpeed);
         transform.rotation = Quaternion.Euler(_lockAngleValue, targetAngle, _lockAngleValue);
+    }
+
+    private void CheckCrying()
+    {
+        if (_carrotTower.CountItemsTower > 0 )
+            _animator.Carry();
+        
+        else
+            _animator.StopCarry();
     }
 }

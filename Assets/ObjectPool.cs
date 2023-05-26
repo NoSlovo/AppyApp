@@ -4,7 +4,6 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
   private List<Money> _moneyPool = new (10);
-  private int _poolSize = 10;
 
   public void AddObjectPool(Money money)
   {

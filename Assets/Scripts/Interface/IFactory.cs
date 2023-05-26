@@ -1,4 +1,4 @@
-﻿public interface IFactory
+﻿public interface IFactory<T>
 {
-    public void InstanceObject();
+    public T InstanceObject();
 }

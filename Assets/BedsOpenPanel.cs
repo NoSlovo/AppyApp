@@ -1,45 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class OpenPanelAviory : MonoBehaviour
+public class BedsOpenPanel : MonoBehaviour
 {
-    [SerializeField] private AviaryOpen _aviary;
-    [SerializeField] private GameObject _garden;
+    [SerializeField] private VegetableGarden _vegetableGarden;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Canvas _canvasPanel;
     
-    private float _duration = 0.2f;
-    private float _animationDuration;
-    private float _maxDurationValue = 0.2f;
-    private Vector3 _scale;
-
-    private int _priceOpen = 60;
-
-    private void OnEnable()
-    {
-        if (transform.localScale == Vector3.zero)
-            transform.localScale = _scale;
-        
-    }
-
-    private void Start()
-    {
-        _text.text = $"{_priceOpen}";
-        var scale = transform.localScale + new Vector3(0.005f, 0, 0.005f);
-        transform.DOScale(scale, 0.5f).SetLoops(-1, LoopType.Yoyo);
-        _animationDuration = _duration;
-    }
-
-    private void Update()
-    {
-        if (_priceOpen == 0)
-        {
-            _canvasPanel.gameObject.SetActive(false);
-            gameObject.SetActive(false);
-        }
-    }
-
+    private int _priceOpen = 10;
+    private float _duration = 1f;
+    private float _maxDurationValue = 1f;
+    private float _animationDuration = 1f;
 
     private void OnTriggerStay(Collider other)
     {
@@ -60,7 +34,7 @@ public class OpenPanelAviory : MonoBehaviour
             }
         }
     }
-
+    
     private void GetMoneyPlayer(Money money)
     {
         var scale = new Vector3(0.73f,0.26f,0.4f);
@@ -89,9 +63,11 @@ public class OpenPanelAviory : MonoBehaviour
     {
         if (_priceOpen <= 0)
         {
-            _aviary.AviaryCreate();
-            _garden.SetActive(true);
+            _vegetableGarden.gameObject.SetActive(true);
+            _canvasPanel.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }   
     }
 
+    
 }
